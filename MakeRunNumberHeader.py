@@ -4,6 +4,7 @@ import datetime
 # HERE ARE CONFIGURATIONS
 
 runList = './demo.list'
+shiftFile = '/path/to/the/shift/file'
     
 # Now make it
 
@@ -39,6 +40,9 @@ with open(header, 'w') as f:
     f.write('\n\n')
     f.write('namespace RunNumber {\n')
     f.write('\n')
+    f.write('\n\tstatic constexpr const char* mShiftFile = "')
+    f.write(shiftFile)
+    f.write('";\n')
     f.write('\tstatic const std::map<Int_t, Int_t> mRunIdxMap = {\n')
     for idx, item in enumerate(runs):
         f.write('\t\t{\t')

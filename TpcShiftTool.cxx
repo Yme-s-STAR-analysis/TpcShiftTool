@@ -59,6 +59,21 @@ double TpcShiftTool::GetShift(double pT, double y) {
 }
 
 // -------- v2.0
+bool TpcShiftTool::Init() {
+    std::cout << "[LOG] - TpcShiftTool: Legacy mode: OFF\n";
+    rootFileName = std::string(RunNumber::mShiftFile);
+    IsLegacy = false;
+    std::cout << "[LOG] - TpcShiftTool: The shift root file would be " << RunNumber::mShiftFile << ".\n";
+    TFile* tf = new TFile(RunNumber::mShiftFile);
+    if (!tf){
+        std::cout << "[WARNING] - TpcShiftTool: File cannot open.\n";
+    }
+    if (tf->IsZombie()) {
+        std::cout << "[WARNING] - TpcShiftTool: Zombie file.\n";
+    }
+    tf->Close();
+}
+
 bool TpcShiftTool::Init(const char* fname) {
     std::cout << "[LOG] - TpcShiftTool: Legacy mode: OFF\n";
     rootFileName = std::string(fname);

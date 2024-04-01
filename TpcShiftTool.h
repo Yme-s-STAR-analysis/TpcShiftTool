@@ -29,6 +29,7 @@ class TpcShiftTool {
         double GetShift(double pT, double y);
 
         // v2.0, use Ashish's shift file
+        bool Init();
         bool Init(const char* fname);
         double GetShift(int runId, double pT, double eta);
         int GetPtBin(double pT);
