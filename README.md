@@ -11,6 +11,8 @@
 1. Before you start, plase modify and run `python3 MakeRunNumberHeader.py`
 
     > The path to the file of mapping run IDs (it is NOT good run ID, but the correct mapping run list)
+    >
+    > And put your path to the shift root file here as well
 
 2. Then you can get `RunNumber.h`
 
@@ -18,7 +20,7 @@
 
     ```c++
         TpcShiftTool* mtShift = new mtShift();
-        mtShift->Init("/path/to/shift_file.root");
+        mtShift->Init();
         /* in track loop */
             double shift = mtShift->GetShift(runId, pt, eta);
     ```
@@ -26,6 +28,10 @@
 4. Then you can cons and run
 
 ## Change Log
+
+01.04.2024 by yghuang (v2.1):
+
+> Minor update: the root file path should be included in `RunNumber.h`
 
 01.04.2024 by yghuang (v2.0):
 
