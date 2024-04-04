@@ -135,7 +135,7 @@ int TpcShiftTool::GetEtaBin(double eta) {
 }
 
 int TpcShiftTool::GetFinalBin(double pT, double eta) {
-    if (pt > 2.5 || pt < 0.0 || eta > 2.0 || eta < -2.0) {
+    if (pT > 2.5 || pT < 0.0 || eta > 2.0 || eta < -2.0) {
         return -1;
     }
     int ptBin = GetPtBin(pT);
