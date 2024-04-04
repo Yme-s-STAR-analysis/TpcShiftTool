@@ -68,11 +68,14 @@ bool TpcShiftTool::Init() {
     TFile* tf = new TFile(RunNumber::mShiftFile);
     if (!tf){
         std::cout << "[WARNING] - TpcShiftTool: File cannot open.\n";
+        return false;
     }
     if (tf->IsZombie()) {
         std::cout << "[WARNING] - TpcShiftTool: Zombie file.\n";
+        return false;
     }
     tf->Close();
+    return true;
 }
 
 bool TpcShiftTool::Init(const char* fname) {
