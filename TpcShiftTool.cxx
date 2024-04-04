@@ -1,5 +1,3 @@
-#include "TpcShiftTool.h"
-#include "RunNumber.h"
 
 #include <iostream>
 
@@ -7,6 +5,9 @@
 #include "TH1F.h"
 #include "TH2F.h"
 #include "TString.h"
+
+#include "TpcShiftTool.h"
+#include "RunNumber.h"
 
 // -------- v1.0
 bool TpcShiftTool::Init(const char* fname, const char* h1name, const char* h2name) {
@@ -82,11 +83,14 @@ bool TpcShiftTool::Init(const char* fname) {
     TFile* tf = new TFile(fname);
     if (!tf){
         std::cout << "[WARNING] - TpcShiftTool: File cannot open.\n";
+        return false;
     }
     if (tf->IsZombie()) {
         std::cout << "[WARNING] - TpcShiftTool: Zombie file.\n";
+        return false;
     }
     tf->Close();
+    return true;
 }
 
 int TpcShiftTool::GetPtBin(double pT) {
@@ -127,7 +131,7 @@ int TpcShiftTool::GetEtaBin(double eta) {
     else { return -1; }
 }
 
-double TpcShiftTool::GetFinalBin(double pT, double eta) {
+int TpcShiftTool::GetFinalBin(double pT, double eta) {
     if (pt > 2.5 || pt < 0.0 || eta > 2.0 || eta < -2.0) {
         return -1;
     }
@@ -139,12 +143,12 @@ double TpcShiftTool::GetFinalBin(double pT, double eta) {
 double TpcShiftTool::GetShift(int runId, double pT, double eta) {
     if (IsLegacy) { return -999; }
     if (runId != curRun) {
-        std::cout << "[LOG] - TpcShiftTool: New Run ID found, now reading shift map for run number " << runId << " (" << cvtId << ")\n";
         TFile* tf = new TFile(rootFileName.c_str());
         curRun = runId;
         if (RunNumber::mRunIdxMap.count(runId) == 0) { return -999; }
         int cvtId = RunNumber::mRunIdxMap.at(runId);
-        runDepShift = (TH1F*)(tf->Get(Form("NSGP_shift_runid%d",cvtId))->Clone());
+        std::cout << "[LOG] - TpcShiftTool: New Run ID found, now reading shift map for run number " << runId << " (" << cvtId << ")\n";
+        runDepShift = (TH1F*)(tf->Get(Form("NSGP_shift_runid%d", cvtId))->Clone());
     }
     int finalBin = GetFinalBin(pT, eta);
     return finalBin < 0 ? 0 : runDepShift->GetBinContent(finalBin+1);

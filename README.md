@@ -29,6 +29,10 @@
 
 ## Change Log
 
+04.04.2024 by yghuang (v2.1.1):
+
+> Fix some bugs
+
 01.04.2024 by yghuang (v2.1):
 
 > Minor update: the root file path should be included in `RunNumber.h`
