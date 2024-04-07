@@ -1,6 +1,6 @@
 # TPC shift Tool
 
-* version: 2.0
+* version: 2.2
 
 * author: yghuang
 
@@ -28,6 +28,10 @@
 4. Then you can cons and run
 
 ## Change Log
+
+07.04.2024 by yghuang (v2.2):
+
+> Fix a fatal bug: n sigma shift index was calculated incorretly
 
 04.04.2024 by yghuang (v2.1.1):
 
