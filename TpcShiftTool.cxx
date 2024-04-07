@@ -140,7 +140,7 @@ int TpcShiftTool::GetFinalBin(double pT, double eta) {
     }
     int ptBin = GetPtBin(pT);
     int etaBin = GetEtaBin(eta);
-    return (ptBin < 0 || etaBin < 0) ? -1 : ptBin*8 + etaBin;
+    return (ptBin < 0 || etaBin < 0) ? -1 : ptBin + etaBin*8;
 }
 
 double TpcShiftTool::GetShift(int runId, double pT, double eta) {
